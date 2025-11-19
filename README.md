@@ -1,73 +1,90 @@
-# Welcome to your Lovable project
+# Tienda Gamer Medellín
 
-## Project info
+E-commerce prototype for a gaming hardware store in Medellín, Colombia.
 
-**URL**: https://lovable.dev/projects/41685aef-5351-4c72-aa44-0a4fdfe3b1d2
+## Features
 
-## How can I edit this code?
+- Modern, responsive design with gaming-themed aesthetics
+- Product catalog with categories (PCs, Components, Peripherals)
+- Shopping cart functionality with persistent storage
+- Product detail pages with image galleries
+- Special offers section
+- Custom PC builder page
+- Checkout/payment flow
+- Skeleton loaders and smooth animations throughout
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **React 18** with TypeScript
+- **Vite** for fast development and building
+- **Tailwind CSS** for styling
+- **shadcn/ui** for UI components
+- **React Router** for navigation
+- **Lucide React** for icons
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/41685aef-5351-4c72-aa44-0a4fdfe3b1d2) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v18 or higher)
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+# Install dependencies
+npm install
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-**Edit a file directly in GitHub**
+## Project Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/       # Reusable UI components
+│   ├── home/        # Home page specific components
+│   ├── layout/      # Layout components (Header, Footer)
+│   ├── products/    # Product-related components
+│   ├── skeletons/   # Loading skeleton components
+│   └── ui/          # shadcn/ui components
+├── contexts/        # React Context providers
+├── data/            # Static data and mock products
+├── hooks/           # Custom React hooks
+├── lib/             # Utility functions
+└── pages/           # Page components (routes)
+```
 
-**Use GitHub Codespaces**
+## Features in Detail
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Animations
+- Smooth fade-in and slide-up animations
+- Hover effects on cards and buttons
+- Skeleton loaders with shimmer effects
+- Scroll-triggered animations
+- Micro-interactions throughout the UI
 
-## What technologies are used for this project?
+### Shopping Cart
+- Add/remove products
+- Quantity management
+- Persistent storage (localStorage)
+- Real-time total calculation
+- Cart badge with bounce animation
 
-This project is built with:
+### Product Catalog
+- Category filtering
+- Price filtering
+- Stock status indicators
+- Special offer badges
+- Product image galleries
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## License
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/41685aef-5351-4c72-aa44-0a4fdfe3b1d2) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This is a prototype project for demonstration purposes.
