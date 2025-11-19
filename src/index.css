@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Gaming dark theme - Base colors */
+    --background: 225 71% 8%;
+    --foreground: 180 100% 98%;
+
+    /* Cards with slight elevation */
+    --card: 225 50% 12%;
+    --card-foreground: 180 100% 98%;
+
+    --popover: 225 50% 12%;
+    --popover-foreground: 180 100% 98%;
+
+    /* Cyan neon primary */
+    --primary: 187 100% 50%;
+    --primary-foreground: 225 71% 8%;
+    
+    /* Magenta neon secondary */
+    --secondary: 300 100% 50%;
+    --secondary-foreground: 225 71% 8%;
+
+    /* Muted purple-gray tones */
+    --muted: 225 30% 18%;
+    --muted-foreground: 220 15% 65%;
+
+    /* Green neon accent */
+    --accent: 160 100% 50%;
+    --accent-foreground: 225 71% 8%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 180 100% 98%;
+
+    /* Borders with subtle glow */
+    --border: 225 30% 20%;
+    --input: 225 30% 20%;
+    --ring: 187 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Glow effects */
+    --glow-primary: 187 100% 50%;
+    --glow-secondary: 300 100% 50%;
+    --glow-accent: 160 100% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(187 100% 50%), hsl(300 100% 50%));
+    --gradient-hero: linear-gradient(135deg, hsl(225 71% 8%), hsl(225 50% 12%));
+    
+    /* Shadows with neon glow */
+    --shadow-glow-primary: 0 0 20px hsl(187 100% 50% / 0.5);
+    --shadow-glow-secondary: 0 0 20px hsl(300 100% 50% / 0.5);
+    --shadow-card: 0 8px 32px hsl(225 71% 4% / 0.5);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Gaming scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/50;
+  }
+
+  /* Glow text utilities */
+  .text-glow-primary {
+    text-shadow: 0 0 20px hsl(var(--glow-primary) / 0.8);
+  }
+
+  .text-glow-secondary {
+    text-shadow: 0 0 20px hsl(var(--glow-secondary) / 0.8);
+  }
+
+  /* Smooth transitions */
+  * {
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

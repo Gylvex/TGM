@@ -1,0 +1,505 @@
+export interface Product {
+  id: string;
+  name: string;
+  category: string;
+  subcategory: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  badge?: string;
+  badgeVariant?: "default" | "destructive" | "outline" | "secondary";
+  stock: boolean;
+  description: string;
+  specs: Record<string, string>;
+  featured?: boolean;
+  bestSeller?: boolean;
+}
+
+export const products: Product[] = [
+  // ==================== PCs GAMER (2) ====================
+  {
+    id: "pc-001",
+    name: "PC Gamer Armada RTX 4060 Ti - Intel i5 13400F",
+    category: "pcs",
+    subcategory: "armadas",
+    price: 4299000,
+    originalPrice: 4799000,
+    image: "/images/productos/PC-Gamer 1.webp",
+    badge: "Oferta -10%",
+    badgeVariant: "destructive",
+    stock: true,
+    featured: true,
+    bestSeller: true,
+    description: "PC Gamer de alto rendimiento con procesador Intel Core i5 13400F y tarjeta gráfica RTX 4060 Ti. Ideal para juegos AAA en 1440p con máximos FPS.",
+    specs: {
+      "Procesador": "Intel Core i5-13400F (10 núcleos, 20 hilos)",
+      "Tarjeta Gráfica": "NVIDIA GeForce RTX 4060 Ti 8GB GDDR6",
+      "Memoria RAM": "16GB DDR5 5200MHz (2x8GB)",
+      "Almacenamiento": "512GB NVMe M.2 SSD",
+      "Fuente": "650W 80+ Bronze Certificada",
+      "Case": "Gabinete RGB con ventilación optimizada",
+      "Sistema Operativo": "Windows 11 Home",
+    },
+  },
+  {
+    id: "pc-002",
+    name: "PC Gamer AMD Ryzen 7 7800X3D + RTX 4070",
+    category: "pcs",
+    subcategory: "armadas",
+    price: 7899000,
+    image: "/images/productos/pc gamer 2.png",
+    badge: "Nuevo",
+    badgeVariant: "secondary",
+    stock: true,
+    featured: true,
+    description: "PC Gamer tope de gama con el mejor procesador para gaming (Ryzen 7 7800X3D) y RTX 4070. Domina cualquier juego en 1440p y 4K.",
+    specs: {
+      "Procesador": "AMD Ryzen 7 7800X3D (8 núcleos, 16 hilos, 3D V-Cache)",
+      "Tarjeta Gráfica": "NVIDIA GeForce RTX 4070 12GB GDDR6X",
+      "Memoria RAM": "32GB DDR5 6000MHz (2x16GB)",
+      "Almacenamiento": "1TB NVMe Gen 4 SSD",
+      "Fuente": "750W 80+ Gold Modular",
+      "Case": "Gabinete NZXT H510 Flow con RGB",
+      "Sistema Operativo": "Windows 11 Pro",
+    },
+  },
+
+  // ==================== TARJETAS GRÁFICAS (2) ====================
+  {
+    id: "gpu-001",
+    name: "ASUS ROG Strix RTX 4070 12GB GDDR6X",
+    category: "componentes",
+    subcategory: "tarjetas-graficas",
+    price: 2899000,
+    image: "/images/productos/ROG Strix.webp",
+    stock: true,
+    featured: true,
+    bestSeller: true,
+    description: "La tarjeta gráfica ROG Strix RTX 4070 ofrece el máximo rendimiento para gaming 1440p y ray tracing. Diseño premium con refrigeración avanzada de triple ventilador.",
+    specs: {
+      "GPU": "NVIDIA GeForce RTX 4070",
+      "Memoria": "12GB GDDR6X",
+      "Frecuencia Base": "1920 MHz",
+      "Frecuencia Boost": "2610 MHz",
+      "Conectores": "3x DisplayPort 1.4a, 2x HDMI 2.1",
+      "Consumo": "200W TDP",
+      "Refrigeración": "Triple ventilador Axial-tech",
+    },
+  },
+  {
+    id: "gpu-002",
+    name: "MSI GeForce RTX 4060 Ti GAMING X 8GB",
+    category: "componentes",
+    subcategory: "tarjetas-graficas",
+    price: 1899000,
+    originalPrice: 2099000,
+    image: "/images/productos/4060ti.png",
+    badge: "Oferta",
+    badgeVariant: "destructive",
+    stock: true,
+    description: "Excelente opción para gaming 1080p y 1440p. Incluye DLSS 3 y ray tracing de última generación. Refrigeración dual TORX 4.0.",
+    specs: {
+      "GPU": "NVIDIA GeForce RTX 4060 Ti",
+      "Memoria": "8GB GDDR6",
+      "Frecuencia Base": "2310 MHz",
+      "Frecuencia Boost": "2595 MHz",
+      "Conectores": "3x DisplayPort 1.4a, 1x HDMI 2.1",
+      "Consumo": "160W TDP",
+      "Refrigeración": "Dual TORX Fan 4.0",
+    },
+  },
+
+  // ==================== PROCESADORES (2) ====================
+  {
+    id: "cpu-001",
+    name: "AMD Ryzen 7 7800X3D - 8 Núcleos, 3D V-Cache",
+    category: "componentes",
+    subcategory: "procesadores",
+    price: 1899000,
+    image: "/images/productos/AMD Ryzen 7 7800X3D.jpg",
+    stock: true,
+    bestSeller: true,
+    featured: true,
+    description: "El mejor procesador para gaming del mercado. AMD Ryzen 7 7800X3D con tecnología 3D V-Cache que ofrece hasta 15% más rendimiento en juegos.",
+    specs: {
+      "Núcleos/Hilos": "8 núcleos / 16 hilos",
+      "Frecuencia Base": "4.2 GHz",
+      "Frecuencia Boost": "Hasta 5.0 GHz",
+      "Cache": "96MB L3 (3D V-Cache)",
+      "TDP": "120W",
+      "Socket": "AM5",
+      "Arquitectura": "Zen 4",
+    },
+  },
+  {
+    id: "cpu-002",
+    name: "Intel Core i5-13400F - 10 Núcleos (6P+4E)",
+    category: "componentes",
+    subcategory: "procesadores",
+    price: 789000,
+    image: "/images/productos/Intel Core i5-13400F.jpg",
+    stock: true,
+    bestSeller: true,
+    description: "Excelente procesador de gama media-alta con arquitectura híbrida. Perfecto para gaming y multitarea. Gran relación precio/rendimiento.",
+    specs: {
+      "Núcleos/Hilos": "10 núcleos (6P+4E) / 16 hilos",
+      "Frecuencia Base": "2.5 GHz (P-cores)",
+      "Frecuencia Turbo": "Hasta 4.6 GHz",
+      "Cache": "20MB Intel Smart Cache",
+      "TDP": "65W (Base), 148W (Turbo)",
+      "Socket": "LGA 1700",
+      "Arquitectura": "13th Gen Raptor Lake",
+    },
+  },
+
+  // ==================== MEMORIA RAM (2) ====================
+  {
+    id: "ram-001",
+    name: "Corsair Vengeance RGB 32GB DDR5 6000MHz",
+    category: "componentes",
+    subcategory: "ram",
+    price: 589000,
+    image: "/images/productos/Corsair Vengeance DDR5 32GB (2x16GB 5200MHz).avif",
+    stock: true,
+    featured: true,
+    description: "Kit de memoria DDR5 de 32GB (2x16GB) a 6000MHz con iluminación RGB personalizable. Perfecta para gaming y productividad con AMD Ryzen 7000 e Intel 13th/14th Gen.",
+    specs: {
+      "Capacidad": "32GB (2x16GB)",
+      "Tipo": "DDR5",
+      "Velocidad": "6000MHz",
+      "Latencia": "CL36",
+      "Voltaje": "1.35V",
+      "Iluminación": "RGB CAPELLIX",
+      "Compatible": "Intel 12th/13th/14th Gen, AMD Ryzen 7000",
+    },
+  },
+  {
+    id: "ram-002",
+    name: "Kingston FURY Beast 16GB DDR4 3200MHz RGB",
+    category: "componentes",
+    subcategory: "ram",
+    price: 269000,
+    image: "/images/productos/Kingston FURY Beast DDR4 16GB (2x8GB 3200MHz).avif",
+    stock: true,
+    description: "Memoria RAM DDR4 de 16GB (2x8GB) ideal para builds económicos. Compatible con Intel y AMD. Incluye iluminación RGB infrarroja.",
+    specs: {
+      "Capacidad": "16GB (2x8GB)",
+      "Tipo": "DDR4",
+      "Velocidad": "3200MHz",
+      "Latencia": "CL16",
+      "Voltaje": "1.35V",
+      "Iluminación": "RGB infrarroja",
+      "Compatible": "Intel y AMD (DDR4)",
+    },
+  },
+
+  // ==================== ALMACENAMIENTO (2) ====================
+  {
+    id: "ssd-001",
+    name: "Samsung 990 PRO 2TB NVMe Gen 4 M.2",
+    category: "componentes",
+    subcategory: "almacenamiento",
+    price: 789000,
+    originalPrice: 899000,
+    image: "/images/productos/Samsung 990 PRO 2TB - SSD NVMe PCIe 4.0.webp",
+    badge: "Oferta",
+    badgeVariant: "destructive",
+    stock: true,
+    featured: true,
+    description: "SSD NVMe PCIe 4.0 de alto rendimiento con velocidades de hasta 7,450 MB/s. Ideal para reducir tiempos de carga en juegos y aplicaciones profesionales.",
+    specs: {
+      "Capacidad": "2TB",
+      "Interfaz": "PCIe 4.0 x4, NVMe 2.0",
+      "Factor de Forma": "M.2 2280",
+      "Lectura Secuencial": "Hasta 7,450 MB/s",
+      "Escritura Secuencial": "Hasta 6,900 MB/s",
+      "TBW": "1,200 TB",
+      "Garantía": "5 años",
+    },
+  },
+  {
+    id: "ssd-002",
+    name: "WD Black SN770 1TB NVMe Gen 4 M.2",
+    category: "componentes",
+    subcategory: "almacenamiento",
+    price: 389000,
+    image: "/images/productos/WD Black SN770 1TB - SSD NVMe.jpg",
+    stock: true,
+    bestSeller: true,
+    description: "SSD NVMe PCIe 4.0 con excelente relación calidad-precio. Velocidades de hasta 5,150 MB/s ideales para gaming.",
+    specs: {
+      "Capacidad": "1TB",
+      "Interfaz": "PCIe 4.0 x4, NVMe 1.4",
+      "Factor de Forma": "M.2 2280",
+      "Lectura Secuencial": "Hasta 5,150 MB/s",
+      "Escritura Secuencial": "Hasta 4,900 MB/s",
+      "TBW": "600 TB",
+      "Garantía": "5 años",
+    },
+  },
+
+  // ==================== TECLADOS (2) ====================
+  {
+    id: "kb-001",
+    name: "HyperX Alloy Origins RGB - HyperX Red Switch",
+    category: "perifericos",
+    subcategory: "teclados",
+    price: 459000,
+    originalPrice: 529000,
+    image: "/images/productos/HyperX Alloy Origins - Teclado Mecánico RGB.jpg",
+    badge: "Oferta",
+    badgeVariant: "destructive",
+    stock: true,
+    description: "Teclado mecánico gaming con switches Red lineales, iluminación RGB personalizable y construcción en aluminio de grado aeroespacial.",
+    specs: {
+      "Switches": "HyperX Red (Lineales)",
+      "Layout": "Full-size español (105 teclas)",
+      "Iluminación": "RGB por tecla",
+      "Construcción": "Marco de aluminio aeroespacial",
+      "Cable": "USB-C desmontable trenzado",
+      "Software": "HyperX NGENUITY",
+    },
+  },
+  {
+    id: "kb-002",
+    name: "Logitech G915 TKL Wireless RGB - GL Tactile",
+    category: "perifericos",
+    subcategory: "teclados",
+    price: 899000,
+    image: "/images/productos/Logitech G915 TKL - Teclado Mecánico Inalámbrico.png",
+    stock: true,
+    featured: true,
+    description: "Teclado mecánico inalámbrico de perfil bajo con switches GL Tactile. Diseño TKL (sin teclado numérico) para máximo espacio en el escritorio.",
+    specs: {
+      "Switches": "Logitech GL Tactile (bajo perfil)",
+      "Layout": "TKL (87 teclas)",
+      "Conectividad": "LIGHTSPEED Wireless + Bluetooth",
+      "Iluminación": "RGB LIGHTSYNC por tecla",
+      "Batería": "Hasta 40 horas con RGB",
+      "Construcción": "Aluminio cepillado",
+    },
+  },
+
+  // ==================== MOUSE (2) ====================
+  {
+    id: "mouse-001",
+    name: "Logitech G Pro X Superlight 2 Wireless - Negro",
+    category: "perifericos",
+    subcategory: "mouse",
+    price: 679000,
+    image: "/images/productos/pro-x-superlight.png",
+    stock: true,
+    bestSeller: true,
+    featured: true,
+    description: "Mouse gaming inalámbrico ultra ligero (menos de 60g) con sensor HERO 2 de 32K DPI. El favorito de los profesionales de eSports.",
+    specs: {
+      "Peso": "Menos de 60 gramos",
+      "Sensor": "HERO 2 de 32,000 DPI",
+      "Conectividad": "LIGHTSPEED Wireless",
+      "Batería": "Hasta 95 horas",
+      "Switches": "LIGHTFORCE híbridos óptico-mecánicos",
+      "Compatible": "Windows, Mac, ChromeOS",
+    },
+  },
+  {
+    id: "mouse-002",
+    name: "Razer DeathAdder V3 Wireless - Negro",
+    category: "perifericos",
+    subcategory: "mouse",
+    price: 549000,
+    image: "/images/productos/Razer DeathAdder V3.jpg",
+    stock: true,
+    bestSeller: true,
+    description: "Mouse ergonómico inalámbrico con sensor Focus Pro 30K y switches ópticos Gen-3. Diseño icónico mejorado para máximo comfort.",
+    specs: {
+      "Peso": "59 gramos",
+      "Sensor": "Razer Focus Pro 30K DPI",
+      "Conectividad": "Razer HyperSpeed Wireless",
+      "Batería": "Hasta 90 horas",
+      "Switches": "Ópticos Gen-3 Razer",
+      "Compatible": "Windows, Mac",
+    },
+  },
+
+  // ==================== MONITORES (2) ====================
+  {
+    id: "mon-001",
+    name: "LG UltraGear 27\" QHD 165Hz IPS Gaming",
+    category: "perifericos",
+    subcategory: "monitores",
+    price: 1299000,
+    image: "/images/productos/LG UltraGear 27GP850 - 27 QHD 165Hz.webp",
+    stock: true,
+    featured: true,
+    description: "Monitor gaming QHD de 27\" con panel IPS de 165Hz. Ideal para gaming competitivo. Compatible con G-Sync y FreeSync Premium.",
+    specs: {
+      "Tamaño": "27 pulgadas",
+      "Resolución": "2560x1440 (QHD)",
+      "Tasa de Refresco": "165Hz",
+      "Tiempo de Respuesta": "1ms (GtG)",
+      "Panel": "IPS",
+      "Sincronización": "G-Sync Compatible / FreeSync Premium",
+      "Conectividad": "2x HDMI 2.0, 1x DisplayPort 1.4",
+    },
+  },
+  {
+    id: "mon-002",
+    name: "ASUS TUF Gaming 24\" FHD 280Hz Fast IPS",
+    category: "perifericos",
+    subcategory: "monitores",
+    price: 1099000,
+    image: "/images/productos/ASUS TUF Gaming VG279QM.png",
+    stock: true,
+    bestSeller: true,
+    description: "Monitor gaming de 24\" con increíble tasa de refresco de 280Hz. Panel Fast IPS ideal para FPS competitivo (CS2, Valorant, Apex).",
+    specs: {
+      "Tamaño": "24 pulgadas",
+      "Resolución": "1920x1080 (FHD)",
+      "Tasa de Refresco": "280Hz overclock",
+      "Tiempo de Respuesta": "0.5ms (GtG)",
+      "Panel": "Fast IPS",
+      "Sincronización": "G-Sync Compatible / FreeSync Premium",
+      "Conectividad": "2x HDMI 2.0, 1x DisplayPort 1.4",
+    },
+  },
+
+  // ==================== AUDÍFONOS (2) ====================
+  {
+    id: "audio-001",
+    name: "HyperX Cloud Alpha Wireless - Negro/Rojo",
+    category: "perifericos",
+    subcategory: "audifonos",
+    price: 749000,
+    image: "/images/productos/HyperX Cloud Alpha Wireless.jpg",
+    stock: true,
+    featured: true,
+    description: "Audífonos gaming inalámbricos con hasta 300 horas de batería. Audio espacial DTS Headphone:X y drivers de cámara dual de 50mm.",
+    specs: {
+      "Conectividad": "2.4GHz inalámbrico",
+      "Batería": "Hasta 300 horas",
+      "Drivers": "Dual Chamber 50mm",
+      "Audio": "DTS Headphone:X Spatial Audio",
+      "Micrófono": "Desmontable con cancelación de ruido",
+      "Compatible": "PC, PS5, PS4, Nintendo Switch",
+    },
+  },
+  {
+    id: "audio-002",
+    name: "Razer BlackShark V2 Pro Wireless - Negro",
+    category: "perifericos",
+    subcategory: "audifonos",
+    price: 849000,
+    image: "/images/productos/Razer BlackShark V2 Pro.jpg",
+    stock: true,
+    description: "Audífonos inalámbricos premium con THX Spatial Audio. Micrófono HyperClear con cancelación de ruido pasiva y activa. Ideal para gaming competitivo.",
+    specs: {
+      "Conectividad": "Razer HyperSpeed Wireless",
+      "Batería": "Hasta 70 horas",
+      "Drivers": "Razer TriForce Titanium 50mm",
+      "Audio": "THX Spatial Audio",
+      "Micrófono": "HyperClear Supercardioid removible",
+      "Compatible": "PC, PS5, PS4, Nintendo Switch, Mobile",
+    },
+  },
+
+  // ==================== SILLAS (2) ====================
+  {
+    id: "silla-001",
+    name: "Corsair TC100 RELAXED - Negro/Cian",
+    category: "perifericos",
+    subcategory: "sillas",
+    price: 1199000,
+    image: "/images/productos/Corsair TC100 Relaxed.jpg",
+    stock: true,
+    description: "Silla ergonómica diseñada para largas sesiones de gaming. Respaldo reclinable hasta 160° y cojines de memoria para máximo confort.",
+    specs: {
+      "Material": "Tela transpirable suave al tacto",
+      "Peso Soportado": "Hasta 120 kg",
+      "Reposabrazos": "2D ajustables",
+      "Reclinación": "90° - 160°",
+      "Ruedas": "Nylon 65mm",
+      "Cojines": "Lumbar y cervical de espuma de memoria",
+      "Garantía": "2 años",
+    },
+  },
+  {
+    id: "silla-002",
+    name: "Secretlab Titan Evo 2024 - Negro/Azul",
+    category: "perifericos",
+    subcategory: "sillas",
+    price: 2299000,
+    image: "/images/productos/Secretlab Titan Evo 2022.webp",
+    stock: true,
+    featured: true,
+    description: "La silla gaming premium por excelencia. Cuero Secretlab NEO Hybrid Leatherette, soporte lumbar magnético L-ADAPT y reposabrazos 4D.",
+    specs: {
+      "Material": "NEO Hybrid Leatherette (cuero sintético premium)",
+      "Peso Soportado": "Hasta 131 kg",
+      "Reposabrazos": "4D CloudSwap magnéticos",
+      "Reclinación": "85° - 165°",
+      "Soporte Lumbar": "L-ADAPT magnético ajustable",
+      "Ruedas": "PU silenciosas multidireccionales",
+      "Garantía": "5 años",
+    },
+  },
+
+  // ==================== PORTÁTILES GAMING (2) ====================
+  {
+    id: "laptop-001",
+    name: "ASUS ROG Strix G16 (2024) i7-13650HX RTX 4060",
+    category: "portatiles",
+    subcategory: "gaming",
+    price: 6499000,
+    image: "/images/productos/ASUS ROG Strix G16.jpg",
+    badge: "Nuevo",
+    badgeVariant: "secondary",
+    stock: true,
+    featured: true,
+    description: "Portátil gaming de 16\" con RTX 4060 y pantalla QHD de 240Hz. ROG Intelligent Cooling para máximo rendimiento sostenido.",
+    specs: {
+      "Procesador": "Intel Core i7-13650HX (14 núcleos)",
+      "Tarjeta Gráfica": "NVIDIA RTX 4060 8GB",
+      "RAM": "16GB DDR5 4800MHz (expandible a 32GB)",
+      "Almacenamiento": "1TB PCIe 4.0 SSD",
+      "Pantalla": "16\" QHD (2560x1600) 240Hz IPS",
+      "Batería": "90Wh",
+      "Sistema Operativo": "Windows 11 Home",
+    },
+  },
+  {
+    id: "laptop-002",
+    name: "Lenovo Legion 5 Pro Ryzen 7 7745HX RTX 4070",
+    category: "portatiles",
+    subcategory: "gaming",
+    price: 8899000,
+    image: "/images/productos/lenovo_82wk0082us_16_legion_pro_5i_1745674.jpg",
+    stock: true,
+    featured: true,
+    description: "Portátil gaming de alta gama con AMD Ryzen 7 7745HX y RTX 4070. Pantalla WQXGA de 16\" a 240Hz para gaming profesional.",
+    specs: {
+      "Procesador": "AMD Ryzen 7 7745HX (8 núcleos, 16 hilos)",
+      "Tarjeta Gráfica": "NVIDIA RTX 4070 8GB 140W TGP",
+      "RAM": "32GB DDR5 4800MHz",
+      "Almacenamiento": "1TB PCIe 4.0 SSD",
+      "Pantalla": "16\" WQXGA (2560x1600) 240Hz IPS",
+      "Batería": "80Wh",
+      "Sistema Operativo": "Windows 11 Home",
+    },
+  },
+];
+
+export const getProductById = (id: string): Product | undefined => {
+  return products.find((p) => p.id === id);
+};
+
+export const getProductsByCategory = (category: string): Product[] => {
+  return products.filter((p) => p.category === category);
+};
+
+export const getFeaturedProducts = (): Product[] => {
+  return products.filter((p) => p.featured);
+};
+
+export const getBestSellers = (): Product[] => {
+  return products.filter((p) => p.bestSeller);
+};
