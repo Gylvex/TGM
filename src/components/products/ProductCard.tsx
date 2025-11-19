@@ -76,21 +76,21 @@ export const ProductCard = ({
       </Link>
 
       {/* Content */}
-      <div className="p-3 sm:p-4 flex flex-col">
+      <div className="p-2 sm:p-3 md:p-4 flex flex-col">
         <Link to={`/producto/${id}`} className="active:opacity-70 transition-opacity">
-          <h3 className="font-semibold text-sm sm:text-base line-clamp-2 active:text-primary md:hover:text-primary transition-colors duration-200 min-h-[2.5rem] sm:min-h-[3rem] mb-2 sm:mb-3">
+          <h3 className="font-semibold text-xs sm:text-sm md:text-base line-clamp-2 active:text-primary md:hover:text-primary transition-colors duration-200 min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] mb-1 sm:mb-2">
             {name}
           </h3>
         </Link>
 
         {/* Contenedor de precios con altura fija para alineación */}
-        <div className="h-[3rem] sm:h-[3.5rem] flex flex-col justify-end mb-3">
+        <div className="h-[2.5rem] sm:h-[3rem] md:h-[3.5rem] flex flex-col justify-end mb-2 sm:mb-3">
           {originalPrice && (
-            <p className="text-xs sm:text-sm text-muted-foreground line-through">
+            <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground line-through">
               {formatPrice(originalPrice)}
             </p>
           )}
-          <p className="text-lg sm:text-xl font-bold text-primary">
+          <p className="text-sm sm:text-lg md:text-xl font-bold text-primary">
             {formatPrice(price)}
           </p>
         </div>
@@ -99,13 +99,14 @@ export const ProductCard = ({
         {stock ? (
           <Button
             onClick={handleAddToCart}
-            className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-auto hover:shadow-glow-primary transition-all duration-300 active:scale-95 min-h-[44px] text-sm sm:text-base"
+            className="w-full gap-1 sm:gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-auto hover:shadow-glow-primary transition-all duration-300 active:scale-95 min-h-[36px] sm:min-h-[40px] md:min-h-[44px] text-xs sm:text-sm md:text-base px-1 sm:px-2 md:px-3"
           >
-            <ShoppingCart className="h-4 w-4 flex-shrink-0" />
-            <span className="truncate">Agregar</span>
+            <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            <span className="truncate hidden sm:inline">Agregar</span>
+            <span className="truncate sm:hidden">+</span>
           </Button>
         ) : (
-          <Button className="w-full mt-auto min-h-[44px]" variant="outline" disabled>
+          <Button className="w-full mt-auto min-h-[36px] sm:min-h-[40px] md:min-h-[44px] text-xs sm:text-sm" variant="outline" disabled>
             Agotado
           </Button>
         )}

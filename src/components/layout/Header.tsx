@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, ShoppingCart, User, Menu, X, ChevronDown } from "lucide-react";
+import { Search, ShoppingCart, User, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/contexts/CartContext";
@@ -10,6 +10,8 @@ export const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showComponentesDropdown, setShowComponentesDropdown] = useState(false);
   const [showPerifericosDropdown, setShowPerifericosDropdown] = useState(false);
+  const [mobileComponentesOpen, setMobileComponentesOpen] = useState(false);
+  const [mobilePerifericosOpen, setMobilePerifericosOpen] = useState(false);
   const [cartBounce, setCartBounce] = useState(false);
   const { cartCount } = useCart();
   const navigate = useNavigate();
@@ -35,6 +37,18 @@ export const Header = () => {
       return () => clearTimeout(timer);
     }
   }, [cartCount]);
+
+  // Scroll lock when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   // Cerrar dropdowns al hacer click fuera
   useEffect(() => {
@@ -238,25 +252,38 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu with backdrop */}
+      {/* Mobile menu - Slide from right */}
       {isMenuOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - Semi-transparent */}
           <div
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden animate-in fade-in-0"
+            className="fixed inset-0 bg-black/30 z-40 lg:hidden animate-in fade-in-0 duration-200"
             onClick={() => setIsMenuOpen(false)}
           />
 
-          {/* Menu panel */}
-          <div className="fixed inset-x-0 top-16 sm:top-20 bottom-0 z-50 lg:hidden bg-background border-t border-border/50 overflow-y-auto animate-in slide-in-from-top-2">
-            <div className="container mx-auto px-4 sm:px-6 py-6 pb-20">
+          {/* Menu panel - From right, 70% width */}
+          <div className="fixed right-0 top-0 bottom-0 w-[70%] max-w-xs z-50 lg:hidden bg-background border-l border-border/50 shadow-2xl overflow-y-auto animate-in slide-in-from-right-full duration-300">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-border/50 bg-card/30 sticky top-0 z-10">
+              <span className="font-bold text-lg">Menú</span>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMenuOpen(false)}
+                className="h-10 w-10"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+
+            <div className="p-4">
               {/* Mobile Search */}
-              <form onSubmit={handleSearch} className="mb-6 relative md:hidden">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <form onSubmit={handleSearch} className="mb-4 relative md:hidden">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
-                  placeholder="Buscar productos..."
-                  className="pl-11 bg-card border-border/50 h-12 text-base"
+                  placeholder="Buscar..."
+                  className="pl-9 bg-card border-border/50 h-10 text-sm"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -266,91 +293,114 @@ export const Header = () => {
               <nav className="flex flex-col space-y-1">
                 <Link
                   to="/"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  className="text-sm font-medium px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Inicio
                 </Link>
                 <Link
                   to="/tienda"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  className="text-sm font-medium px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Tienda
                 </Link>
 
-                {/* Mobile Componentes */}
-                <div className="pt-2 pb-1">
-                  <p className="text-xs font-bold text-primary mb-2 px-4">COMPONENTES</p>
-                  {componentesItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className="flex items-center text-base px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px]"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                {/* Componentes - Collapsible */}
+                <div>
+                  <button
+                    onClick={() => setMobileComponentesOpen(!mobileComponentesOpen)}
+                    className="w-full text-sm font-medium px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center justify-between"
+                  >
+                    Componentes
+                    <ChevronRight className={`h-4 w-4 transition-transform ${mobileComponentesOpen ? 'rotate-90' : ''}`} />
+                  </button>
+                  {mobileComponentesOpen && (
+                    <div className="ml-3 mt-1 space-y-1 animate-in slide-in-from-top-1">
+                      {componentesItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className="block text-sm px-3 py-2 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 text-muted-foreground hover:text-foreground"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* Mobile Periféricos */}
-                <div className="pt-2 pb-1">
-                  <p className="text-xs font-bold text-primary mb-2 px-4">PERIFÉRICOS</p>
-                  {perifericosItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className="flex items-center text-base px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px]"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                {/* Periféricos - Collapsible */}
+                <div>
+                  <button
+                    onClick={() => setMobilePerifericosOpen(!mobilePerifericosOpen)}
+                    className="w-full text-sm font-medium px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center justify-between"
+                  >
+                    Periféricos
+                    <ChevronRight className={`h-4 w-4 transition-transform ${mobilePerifericosOpen ? 'rotate-90' : ''}`} />
+                  </button>
+                  {mobilePerifericosOpen && (
+                    <div className="ml-3 mt-1 space-y-1 animate-in slide-in-from-top-1">
+                      {perifericosItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className="block text-sm px-3 py-2 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 text-muted-foreground hover:text-foreground"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <Link
                   to="/categoria/pcs"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  className="text-sm font-medium px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   PCs Gamer
                 </Link>
                 <Link
                   to="/arma-tu-pc"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  className="text-sm font-medium px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Arma tu PC
                 </Link>
                 <Link
                   to="/ofertas"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  className="text-sm font-medium px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Ofertas
                 </Link>
-                <Link
-                  to="/soporte"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Soporte
-                </Link>
-                <Link
-                  to="/nosotros"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Nosotros
-                </Link>
-                <Link
-                  to="/contacto"
-                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Contacto
-                </Link>
+
+                <div className="pt-4 mt-4 border-t border-border/50">
+                  <Link
+                    to="/soporte"
+                    className="text-sm px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center text-muted-foreground hover:text-foreground"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Soporte
+                  </Link>
+                  <Link
+                    to="/nosotros"
+                    className="text-sm px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center text-muted-foreground hover:text-foreground"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Nosotros
+                  </Link>
+                  <Link
+                    to="/contacto"
+                    className="text-sm px-3 py-2.5 rounded-md transition-all active:bg-primary/20 hover:bg-primary/10 flex items-center text-muted-foreground hover:text-foreground"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Contacto
+                  </Link>
+                </div>
               </nav>
             </div>
           </div>
