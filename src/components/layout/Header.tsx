@@ -71,14 +71,14 @@ export const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-primary/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       {/* Main header */}
-      <div className="container mx-auto px-4">
-        <div className="flex h-20 items-center justify-between gap-3">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex h-16 sm:h-20 items-center justify-between gap-2 sm:gap-3">
           {/* Logo */}
-          <Link to="/" className="flex items-center group ml-2 flex-shrink-0">
+          <Link to="/" className="flex items-center group flex-shrink-0">
             <img
               src="/logo.png"
               alt="Tienda Gamer Medellín"
-              className="h-16 w-auto group-hover:scale-105 transition-transform"
+              className="h-12 sm:h-16 w-auto group-hover:scale-105 transition-transform"
             />
           </Link>
 
@@ -196,29 +196,29 @@ export const Header = () => {
             </Link>
           </nav>
 
-          {/* Search bar - más pequeño */}
+          {/* Search bar - Desktop only */}
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xs relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Buscar productos..."
-              className="pl-10 bg-card border-border/50 focus:border-primary text-sm h-9"
+              className="pl-10 bg-card border-border/50 focus:border-primary text-sm h-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </form>
 
           {/* Actions */}
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <Button variant="ghost" size="icon" className="hidden md:flex h-9 w-9">
-              <User className="h-4 w-4" />
+          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+            <Button variant="ghost" size="icon" className="hidden md:flex min-h-[44px] min-w-[44px] h-11 w-11">
+              <User className="h-5 w-5" />
             </Button>
 
             <Link to="/carrito">
-              <Button variant="ghost" size="icon" className="relative h-9 w-9 group">
-                <ShoppingCart className={`h-4 w-4 transition-transform ${cartBounce ? 'scale-125' : ''}`} />
+              <Button variant="ghost" size="icon" className="relative min-h-[44px] min-w-[44px] h-11 w-11 group active:scale-95 transition-transform">
+                <ShoppingCart className={`h-5 w-5 transition-transform ${cartBounce ? 'scale-125' : ''}`} />
                 {cartCount > 0 && (
-                  <span className={`absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold shadow-glow-primary transition-transform ${cartBounce ? 'animate-bounce-subtle scale-125' : ''}`}>
+                  <span className={`absolute -top-1 -right-1 h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold shadow-glow-primary transition-transform ${cartBounce ? 'animate-bounce-subtle scale-125' : ''}`}>
                     {cartCount}
                   </span>
                 )}
@@ -228,123 +228,133 @@ export const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden h-9 w-9"
+              className="lg:hidden min-h-[44px] min-w-[44px] h-11 w-11 active:scale-95 transition-transform"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu with backdrop */}
       {isMenuOpen && (
-        <div className="lg:hidden border-t border-border/50">
-          <div className="container mx-auto px-4 py-4">
-            {/* Mobile Search */}
-            <form onSubmit={handleSearch} className="mb-4 relative md:hidden">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Buscar productos..."
-                className="pl-10 bg-card border-border/50"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </form>
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden animate-in fade-in-0"
+            onClick={() => setIsMenuOpen(false)}
+          />
 
-            {/* Mobile Navigation */}
-            <nav className="flex flex-col space-y-2">
-              <Link
-                to="/"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Inicio
-              </Link>
-              <Link
-                to="/tienda"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Tienda
-              </Link>
+          {/* Menu panel */}
+          <div className="fixed inset-x-0 top-16 sm:top-20 bottom-0 z-50 lg:hidden bg-background border-t border-border/50 overflow-y-auto animate-in slide-in-from-top-2">
+            <div className="container mx-auto px-4 sm:px-6 py-6 pb-20">
+              {/* Mobile Search */}
+              <form onSubmit={handleSearch} className="mb-6 relative md:hidden">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Buscar productos..."
+                  className="pl-11 bg-card border-border/50 h-12 text-base"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </form>
 
-              {/* Mobile Componentes */}
-              <div className="pl-3">
-                <p className="text-xs font-semibold text-muted-foreground mb-2">COMPONENTES</p>
-                {componentesItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className="block text-sm px-3 py-1.5 rounded-md transition-all hover:bg-primary/10"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+              {/* Mobile Navigation */}
+              <nav className="flex flex-col space-y-1">
+                <Link
+                  to="/"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Inicio
+                </Link>
+                <Link
+                  to="/tienda"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Tienda
+                </Link>
 
-              {/* Mobile Periféricos */}
-              <div className="pl-3">
-                <p className="text-xs font-semibold text-muted-foreground mb-2">PERIFÉRICOS</p>
-                {perifericosItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className="block text-sm px-3 py-1.5 rounded-md transition-all hover:bg-primary/10"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+                {/* Mobile Componentes */}
+                <div className="pt-2 pb-1">
+                  <p className="text-xs font-bold text-primary mb-2 px-4">COMPONENTES</p>
+                  {componentesItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="flex items-center text-base px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px]"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
 
-              <Link
-                to="/categoria/pcs"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                PCs Gamer
-              </Link>
-              <Link
-                to="/arma-tu-pc"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Arma tu PC
-              </Link>
-              <Link
-                to="/ofertas"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Ofertas
-              </Link>
-              <Link
-                to="/soporte"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Soporte
-              </Link>
-              <Link
-                to="/nosotros"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Nosotros
-              </Link>
-              <Link
-                to="/contacto"
-                className="text-sm font-medium px-3 py-2 rounded-md transition-all hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contacto
-              </Link>
-            </nav>
+                {/* Mobile Periféricos */}
+                <div className="pt-2 pb-1">
+                  <p className="text-xs font-bold text-primary mb-2 px-4">PERIFÉRICOS</p>
+                  {perifericosItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="flex items-center text-base px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px]"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+
+                <Link
+                  to="/categoria/pcs"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  PCs Gamer
+                </Link>
+                <Link
+                  to="/arma-tu-pc"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Arma tu PC
+                </Link>
+                <Link
+                  to="/ofertas"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Ofertas
+                </Link>
+                <Link
+                  to="/soporte"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Soporte
+                </Link>
+                <Link
+                  to="/nosotros"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Nosotros
+                </Link>
+                <Link
+                  to="/contacto"
+                  className="text-base font-medium px-4 py-3 rounded-lg transition-all active:bg-primary/20 hover:bg-primary/10 min-h-[48px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contacto
+                </Link>
+              </nav>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
