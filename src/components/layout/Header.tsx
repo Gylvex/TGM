@@ -257,12 +257,12 @@ export const Header = () => {
         <>
           {/* Backdrop - Semi-transparent */}
           <div
-            className="fixed inset-0 bg-black/30 z-40 lg:hidden animate-in fade-in-0 duration-200"
+            className="fixed inset-0 bg-black/30 z-[100] lg:hidden animate-in fade-in-0 duration-200"
             onClick={() => setIsMenuOpen(false)}
           />
 
           {/* Menu panel - From right, 70% width */}
-          <div className="fixed right-0 top-0 bottom-0 w-[70%] max-w-xs z-50 lg:hidden bg-background border-l border-border/50 shadow-2xl overflow-y-auto animate-in slide-in-from-right-full duration-300">
+          <div className="fixed right-0 top-0 bottom-0 w-[70%] max-w-xs z-[101] lg:hidden bg-background border-l border-border/50 shadow-2xl overflow-y-auto animate-in slide-in-from-right-full duration-300">
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-border/50 bg-card/30 sticky top-0 z-10">
               <span className="font-bold text-lg">Menú</span>
