@@ -40,15 +40,12 @@ export const Footer = () => {
               >
                 <Youtube className="h-5 w-5" />
               </a>
-              <a
-                href="https://wa.me/573001234567"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
                 className="min-h-[44px] min-w-[44px] h-11 w-11 rounded-lg bg-accent hover:bg-accent/80 text-accent-foreground active:scale-95 flex items-center justify-center transition-all"
                 aria-label="WhatsApp"
               >
                 <MessageCircle className="h-5 w-5" />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -124,9 +121,7 @@ export const Footer = () => {
                 <MessageCircle className="h-5 w-5 mt-0.5 text-accent flex-shrink-0" />
                 <div>
                   <p className="font-medium text-foreground">WhatsApp</p>
-                  <a href="https://wa.me/573001234567" className="hover:text-primary active:text-primary transition-colors">
-                    +57 300 123 4567
-                  </a>
+                  <p className="text-muted-foreground">+57 300 123 4567</p>
                 </div>
               </li>
               <li>

@@ -160,42 +160,17 @@ const ArmaTuPc = () => {
     return total;
   };
 
-  const sendWhatsAppQuote = () => {
-    const phoneNumber = "573001234567"; // Número de WhatsApp de la tienda
-
-    let message = `¡Hola! Me gustaría cotizar esta configuración de PC Gamer:\n\n`;
-    message += `💰 *Presupuesto:* ${formatPrice(Number(selections.budget))}\n`;
-    message += `🎮 *Uso principal:* ${selections.use}\n\n`;
-    message += `*Componentes seleccionados:*\n`;
-
-    if (selections.cpu) {
-      message += `🔧 *Procesador:* ${selections.cpu.name}\n`;
-      message += `   ${formatPrice(selections.cpu.price)}\n\n`;
-    }
-
-    if (selections.gpu) {
-      message += `🎨 *Tarjeta Gráfica:* ${selections.gpu.name}\n`;
-      message += `   ${formatPrice(selections.gpu.price)}\n\n`;
-    }
-
-    if (selections.ram) {
-      message += `💾 *Memoria RAM:* ${selections.ram.name}\n`;
-      message += `   ${formatPrice(selections.ram.price)}\n\n`;
-    }
-
-    if (selections.storage) {
-      message += `💿 *Almacenamiento:* ${selections.storage.name}\n`;
-      message += `   ${formatPrice(selections.storage.price)}\n\n`;
-    }
-
-    message += `---\n`;
-    message += `*TOTAL ESTIMADO:* ${formatPrice(getTotalPrice())}\n\n`;
-    message += `¿Podrían ayudarme con esta configuración?`;
-
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-    window.open(whatsappUrl, '_blank');
+  const handleQuoteSubmit = () => {
+    // Funcionalidad deshabilitada - solo para demostración
+    console.log('Cotización guardada:', {
+      budget: selections.budget,
+      use: selections.use,
+      cpu: selections.cpu,
+      gpu: selections.gpu,
+      ram: selections.ram,
+      storage: selections.storage,
+      total: getTotalPrice()
+    });
   };
 
   const handleSelect = (category: string, item: any) => {
@@ -525,10 +500,10 @@ const ArmaTuPc = () => {
                   <Card className="p-4 sm:p-6 bg-primary/5 border-primary/30">
                     <h3 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4">¡Tu configuración está lista!</h3>
                     <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
-                      Revisa tu configuración y envíanos tu cotización por WhatsApp para finalizar tu pedido.
+                      Revisa tu configuración personalizada y el precio estimado de tu PC ideal.
                     </p>
-                    <Button size="lg" className="w-full shadow-glow-primary min-h-[44px]" onClick={sendWhatsAppQuote}>
-                      Enviar cotización por WhatsApp
+                    <Button size="lg" className="w-full shadow-glow-primary min-h-[44px]" onClick={handleQuoteSubmit}>
+                      Guardar configuración
                     </Button>
                   </Card>
                 )}
