@@ -226,13 +226,13 @@ const ArmaTuPc = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 py-6 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Steps Navigation */}
-          <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-24">
-              <h2 className="font-bold text-lg mb-4">Progreso</h2>
-              <div className="space-y-3">
+          <div className="lg:col-span-1 order-2 lg:order-1">
+            <Card className="p-4 sm:p-6 lg:sticky lg:top-24">
+              <h2 className="font-bold text-base sm:text-lg mb-3 sm:mb-4">Progreso</h2>
+              <div className="space-y-2 sm:space-y-3">
                 {steps.map((s, index) => {
                   const Icon = s.icon;
                   const isCompleted = index < step - 1;
@@ -244,16 +244,16 @@ const ArmaTuPc = () => {
                       key={s.id}
                       onClick={() => isAccessible && setStep(s.id)}
                       disabled={!isAccessible}
-                      className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+                      className={`w-full flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg transition-colors min-h-[44px] ${
                         isCurrent
                           ? "bg-primary/10 border-2 border-primary"
                           : isCompleted
-                          ? "bg-accent/10 border-2 border-accent cursor-pointer hover:border-accent/80"
+                          ? "bg-accent/10 border-2 border-accent cursor-pointer hover:border-accent/80 active:scale-98"
                           : "border-2 border-border/50 opacity-50 cursor-not-allowed"
                       }`}
                     >
                       <div
-                        className={`h-10 w-10 rounded-lg flex items-center justify-center ${
+                        className={`h-8 w-8 sm:h-10 sm:w-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
                           isCompleted
                             ? "bg-accent text-accent-foreground"
                             : isCurrent
@@ -262,16 +262,16 @@ const ArmaTuPc = () => {
                         }`}
                       >
                         {isCompleted ? (
-                          <Check className="h-5 w-5" />
+                          <Check className="h-4 w-4 sm:h-5 sm:w-5" />
                         ) : (
-                          <Icon className="h-5 w-5" />
+                          <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                         )}
                       </div>
-                      <div className="flex-1 text-left">
-                        <p className={`text-sm font-semibold ${isCurrent ? "text-primary" : ""}`}>
+                      <div className="flex-1 text-left min-w-0">
+                        <p className={`text-xs sm:text-sm font-semibold truncate ${isCurrent ? "text-primary" : ""}`}>
                           {s.title}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-[10px] sm:text-xs text-muted-foreground">
                           Paso {index + 1} de {steps.length}
                         </p>
                       </div>
@@ -280,46 +280,46 @@ const ArmaTuPc = () => {
                 })}
               </div>
 
-              <Separator className="my-6" />
+              <Separator className="my-4 sm:my-6" />
 
               {/* Price Summary */}
-              <div className="space-y-3">
-                <h3 className="font-bold">Resumen</h3>
+              <div className="space-y-2 sm:space-y-3">
+                <h3 className="font-bold text-sm sm:text-base">Resumen</h3>
                 {selections.cpu && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">CPU</span>
                     <span className="font-semibold">{formatPrice(selections.cpu.price)}</span>
                   </div>
                 )}
                 {selections.gpu && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">GPU</span>
                     <span className="font-semibold">{formatPrice(selections.gpu.price)}</span>
                   </div>
                 )}
                 {selections.ram && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">RAM</span>
                     <span className="font-semibold">{formatPrice(selections.ram.price)}</span>
                   </div>
                 )}
                 {selections.storage && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">SSD</span>
                     <span className="font-semibold">{formatPrice(selections.storage.price)}</span>
                   </div>
                 )}
                 {Object.keys(selections).length > 2 && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">Otros componentes</span>
                     <span className="font-semibold">{formatPrice(650000)}</span>
                   </div>
                 )}
-                
+
                 {Object.keys(selections).length > 2 && (
                   <>
                     <Separator />
-                    <div className="flex justify-between text-lg font-bold">
+                    <div className="flex justify-between text-base sm:text-lg font-bold">
                       <span>Total estimado</span>
                       <span className="text-primary">{formatPrice(getTotalPrice())}</span>
                     </div>
@@ -330,31 +330,31 @@ const ArmaTuPc = () => {
           </div>
 
           {/* Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 order-1 lg:order-2">
             {/* Step 1: Budget */}
             {step === 1 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">¿Cuál es tu presupuesto?</h2>
-                  <p className="text-muted-foreground">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">¿Cuál es tu presupuesto?</h2>
+                  <p className="text-sm sm:text-base text-muted-foreground">
                     Selecciona el rango que mejor se ajuste a tu inversión
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {budgetOptions.map((option) => (
                     <button
                       key={option.id}
                       onClick={() => handleSelect("budget", option)}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-4 sm:p-6 rounded-xl border-2 transition-all text-left min-h-[44px] active:scale-[0.98] ${
                         selections.budget?.id === option.id
                           ? "border-primary bg-primary/10 shadow-glow-primary"
-                          : "border-border/50 hover:border-primary/50"
+                          : "border-border/50 hover:border-primary/50 active:border-primary/50"
                       }`}
                     >
-                      <h3 className="font-bold text-lg mb-2">{option.label}</h3>
-                      <p className="text-xl font-bold text-primary mb-2">{option.range}</p>
-                      <p className="text-sm text-muted-foreground">{option.description}</p>
+                      <h3 className="font-bold text-base sm:text-lg mb-1 sm:mb-2">{option.label}</h3>
+                      <p className="text-lg sm:text-xl font-bold text-primary mb-1 sm:mb-2">{option.range}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{option.description}</p>
                     </button>
                   ))}
                 </div>
@@ -363,27 +363,27 @@ const ArmaTuPc = () => {
 
             {/* Step 2: Use */}
             {step === 2 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">¿Cuál será el uso principal?</h2>
-                  <p className="text-muted-foreground">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">¿Cuál será el uso principal?</h2>
+                  <p className="text-sm sm:text-base text-muted-foreground">
                     Esto nos ayudará a recomendar los mejores componentes
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-3 sm:gap-4">
                   {useOptions.map((option) => (
                     <button
                       key={option.id}
                       onClick={() => handleSelect("use", option)}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-4 sm:p-6 rounded-xl border-2 transition-all text-left min-h-[44px] active:scale-[0.98] ${
                         selections.use?.id === option.id
                           ? "border-primary bg-primary/10 shadow-glow-primary"
-                          : "border-border/50 hover:border-primary/50"
+                          : "border-border/50 hover:border-primary/50 active:border-primary/50"
                       }`}
                     >
-                      <h3 className="font-bold text-lg mb-2">{option.label}</h3>
-                      <p className="text-sm text-muted-foreground">{option.description}</p>
+                      <h3 className="font-bold text-base sm:text-lg mb-1 sm:mb-2">{option.label}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{option.description}</p>
                     </button>
                   ))}
                 </div>
@@ -392,31 +392,31 @@ const ArmaTuPc = () => {
 
             {/* Step 3: CPU */}
             {step === 3 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">Elige tu procesador</h2>
-                  <p className="text-muted-foreground">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Elige tu procesador</h2>
+                  <p className="text-sm sm:text-base text-muted-foreground">
                     El cerebro de tu PC
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {cpuOptions.map((option) => (
                     <button
                       key={option.id}
                       onClick={() => handleSelect("cpu", option)}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-4 sm:p-6 rounded-xl border-2 transition-all text-left min-h-[44px] active:scale-[0.98] ${
                         selections.cpu?.id === option.id
                           ? "border-primary bg-primary/10 shadow-glow-primary"
-                          : "border-border/50 hover:border-primary/50"
+                          : "border-border/50 hover:border-primary/50 active:border-primary/50"
                       }`}
                     >
                       {option.badge && (
-                        <Badge className="mb-3">{option.badge}</Badge>
+                        <Badge className="mb-2 sm:mb-3 text-[10px] sm:text-xs">{option.badge}</Badge>
                       )}
-                      <h3 className="font-bold text-lg mb-2">{option.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{option.specs}</p>
-                      <p className="text-xl font-bold text-primary">{formatPrice(option.price)}</p>
+                      <h3 className="font-bold text-sm sm:text-lg mb-1 sm:mb-2">{option.name}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">{option.specs}</p>
+                      <p className="text-base sm:text-xl font-bold text-primary">{formatPrice(option.price)}</p>
                     </button>
                   ))}
                 </div>
@@ -425,31 +425,31 @@ const ArmaTuPc = () => {
 
             {/* Step 4: GPU */}
             {step === 4 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">Elige tu tarjeta gráfica</h2>
-                  <p className="text-muted-foreground">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Elige tu tarjeta gráfica</h2>
+                  <p className="text-sm sm:text-base text-muted-foreground">
                     El componente más importante para gaming
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {gpuOptions.map((option) => (
                     <button
                       key={option.id}
                       onClick={() => handleSelect("gpu", option)}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-4 sm:p-6 rounded-xl border-2 transition-all text-left min-h-[44px] active:scale-[0.98] ${
                         selections.gpu?.id === option.id
                           ? "border-primary bg-primary/10 shadow-glow-primary"
-                          : "border-border/50 hover:border-primary/50"
+                          : "border-border/50 hover:border-primary/50 active:border-primary/50"
                       }`}
                     >
                       {option.badge && (
-                        <Badge className="mb-3">{option.badge}</Badge>
+                        <Badge className="mb-2 sm:mb-3 text-[10px] sm:text-xs">{option.badge}</Badge>
                       )}
-                      <h3 className="font-bold text-lg mb-2">{option.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{option.specs}</p>
-                      <p className="text-xl font-bold text-primary">{formatPrice(option.price)}</p>
+                      <h3 className="font-bold text-sm sm:text-lg mb-1 sm:mb-2">{option.name}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">{option.specs}</p>
+                      <p className="text-base sm:text-xl font-bold text-primary">{formatPrice(option.price)}</p>
                     </button>
                   ))}
                 </div>
@@ -458,31 +458,31 @@ const ArmaTuPc = () => {
 
             {/* Step 5: RAM */}
             {step === 5 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">Elige tu memoria RAM</h2>
-                  <p className="text-muted-foreground">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Elige tu memoria RAM</h2>
+                  <p className="text-sm sm:text-base text-muted-foreground">
                     Más RAM = mejor multitarea
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {ramOptions.map((option) => (
                     <button
                       key={option.id}
                       onClick={() => handleSelect("ram", option)}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-4 sm:p-6 rounded-xl border-2 transition-all text-left min-h-[44px] active:scale-[0.98] ${
                         selections.ram?.id === option.id
                           ? "border-primary bg-primary/10 shadow-glow-primary"
-                          : "border-border/50 hover:border-primary/50"
+                          : "border-border/50 hover:border-primary/50 active:border-primary/50"
                       }`}
                     >
                       {option.badge && (
-                        <Badge className="mb-3">{option.badge}</Badge>
+                        <Badge className="mb-2 sm:mb-3 text-[10px] sm:text-xs">{option.badge}</Badge>
                       )}
-                      <h3 className="font-bold text-lg mb-2">{option.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{option.specs}</p>
-                      <p className="text-xl font-bold text-primary">{formatPrice(option.price)}</p>
+                      <h3 className="font-bold text-sm sm:text-lg mb-1 sm:mb-2">{option.name}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">{option.specs}</p>
+                      <p className="text-base sm:text-xl font-bold text-primary">{formatPrice(option.price)}</p>
                     </button>
                   ))}
                 </div>
@@ -491,43 +491,43 @@ const ArmaTuPc = () => {
 
             {/* Step 6: Storage */}
             {step === 6 && (
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">Elige tu almacenamiento</h2>
-                  <p className="text-muted-foreground">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Elige tu almacenamiento</h2>
+                  <p className="text-sm sm:text-base text-muted-foreground">
                     Velocidad de carga y espacio para tus juegos
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {storageOptions.map((option) => (
                     <button
                       key={option.id}
                       onClick={() => handleSelect("storage", option)}
-                      className={`p-6 rounded-xl border-2 transition-all text-left ${
+                      className={`p-4 sm:p-6 rounded-xl border-2 transition-all text-left min-h-[44px] active:scale-[0.98] ${
                         selections.storage?.id === option.id
                           ? "border-primary bg-primary/10 shadow-glow-primary"
-                          : "border-border/50 hover:border-primary/50"
+                          : "border-border/50 hover:border-primary/50 active:border-primary/50"
                       }`}
                     >
                       {option.badge && (
-                        <Badge className="mb-3">{option.badge}</Badge>
+                        <Badge className="mb-2 sm:mb-3 text-[10px] sm:text-xs">{option.badge}</Badge>
                       )}
-                      <h3 className="font-bold text-lg mb-2">{option.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{option.specs}</p>
-                      <p className="text-xl font-bold text-primary">{formatPrice(option.price)}</p>
+                      <h3 className="font-bold text-sm sm:text-lg mb-1 sm:mb-2">{option.name}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">{option.specs}</p>
+                      <p className="text-base sm:text-xl font-bold text-primary">{formatPrice(option.price)}</p>
                     </button>
                   ))}
                 </div>
 
                 {/* Final Summary */}
                 {selections.storage && (
-                  <Card className="p-6 bg-primary/5 border-primary/30">
-                    <h3 className="font-bold text-xl mb-4">¡Tu configuración está lista!</h3>
-                    <p className="text-muted-foreground mb-6">
+                  <Card className="p-4 sm:p-6 bg-primary/5 border-primary/30">
+                    <h3 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4">¡Tu configuración está lista!</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
                       Revisa tu configuración y envíanos tu cotización por WhatsApp para finalizar tu pedido.
                     </p>
-                    <Button size="lg" className="w-full shadow-glow-primary" onClick={sendWhatsAppQuote}>
+                    <Button size="lg" className="w-full shadow-glow-primary min-h-[44px]" onClick={sendWhatsAppQuote}>
                       Enviar cotización por WhatsApp
                     </Button>
                   </Card>
@@ -536,20 +536,21 @@ const ArmaTuPc = () => {
             )}
 
             {/* Navigation */}
-            <div className="flex justify-between mt-8">
+            <div className="flex justify-between mt-6 sm:mt-8">
               <Button
                 variant="outline"
                 onClick={() => setStep(Math.max(1, step - 1))}
                 disabled={step === 1}
+                className="min-h-[44px] px-4 sm:px-6 text-sm sm:text-base"
               >
                 Anterior
               </Button>
-              
+
               {step < 6 && (
                 <Button
                   onClick={() => setStep(step + 1)}
                   disabled={!canProceed()}
-                  className="gap-2"
+                  className="gap-1 sm:gap-2 min-h-[44px] px-4 sm:px-6 text-sm sm:text-base"
                 >
                   Siguiente
                   <ChevronRight className="h-4 w-4" />
