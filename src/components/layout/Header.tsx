@@ -251,8 +251,8 @@ export const Header = () => {
             </Button>
           </div>
         </div>
+      </div>
       </header>
-
       {/* Mobile menu - Slide from right - OUTSIDE header */}
       {isMenuOpen && (
         <>
