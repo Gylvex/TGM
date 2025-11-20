@@ -366,34 +366,36 @@ const Tienda = () => {
               </Button>
 
               {/* Sort Dropdown */}
-              <div className="flex items-center gap-2 w-full sm:w-auto" ref={sortDropdownRef}>
+              <div className="relative flex items-center gap-2 w-full sm:w-auto" ref={sortDropdownRef}>
                 <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline whitespace-nowrap">Ordenar por:</span>
-                <button
-                  onClick={() => setShowSortDropdown(!showSortDropdown)}
-                  className="flex flex-1 sm:flex-initial h-12 sm:h-10 sm:w-[200px] items-center justify-between rounded-md border border-input bg-background px-3 sm:px-4 py-2 text-sm ring-offset-background hover:bg-accent hover:text-accent-foreground active:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all"
-                >
-                  <span className="truncate">{getSortLabel(sortBy)}</span>
-                  <ChevronDown className={`h-4 w-4 ml-2 flex-shrink-0 opacity-50 transition-transform ${showSortDropdown ? 'rotate-180' : ''}`} />
-                </button>
+                <div className="relative flex-1 sm:flex-initial">
+                  <button
+                    onClick={() => setShowSortDropdown(!showSortDropdown)}
+                    className="flex w-full sm:w-[200px] h-12 sm:h-10 items-center justify-between rounded-md border border-input bg-background px-3 sm:px-4 py-2 text-sm ring-offset-background hover:bg-accent hover:text-accent-foreground active:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all"
+                  >
+                    <span className="truncate">{getSortLabel(sortBy)}</span>
+                    <ChevronDown className={`h-4 w-4 ml-2 flex-shrink-0 opacity-50 transition-transform ${showSortDropdown ? 'rotate-180' : ''}`} />
+                  </button>
 
-                {showSortDropdown && (
-                  <div className="absolute top-full left-0 sm:left-auto sm:right-0 mt-1 w-full sm:w-[240px] rounded-md border border-border bg-popover shadow-lg z-50 overflow-hidden animate-in fade-in-0 zoom-in-95">
-                    {sortOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => {
-                          setSortBy(option.value);
-                          setShowSortDropdown(false);
-                        }}
-                        className={`w-full text-left px-4 py-3 text-sm hover:bg-accent hover:text-accent-foreground active:bg-accent transition-colors min-h-[48px] flex items-center ${
-                          sortBy === option.value ? 'bg-accent/50 font-medium' : ''
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  {showSortDropdown && (
+                    <div className="fixed sm:absolute left-4 right-4 sm:left-auto sm:right-0 top-auto sm:top-full mt-1 sm:w-[240px] rounded-md border border-border bg-popover shadow-lg z-[100] overflow-hidden animate-in fade-in-0 zoom-in-95">
+                      {sortOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => {
+                            setSortBy(option.value);
+                            setShowSortDropdown(false);
+                          }}
+                          className={`w-full text-left px-4 py-3 text-sm hover:bg-accent hover:text-accent-foreground active:bg-accent transition-colors min-h-[48px] flex items-center ${
+                            sortBy === option.value ? 'bg-accent/50 font-medium' : ''
+                          }`}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 

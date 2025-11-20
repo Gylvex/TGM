@@ -1,6 +1,6 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Filter, ChevronDown } from "lucide-react";
+import { Filter, ChevronDown, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/products/ProductCard";
 import { products } from "@/data/products";
@@ -112,6 +112,7 @@ const Categoria = () => {
   const [onlyInStock, setOnlyInStock] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;
+  const sortDropdownRef = useRef<HTMLDivElement>(null);
 
   // Simulate initial loading
   useEffect(() => {
@@ -120,6 +121,18 @@ const Categoria = () => {
     }, 800);
     return () => clearTimeout(timer);
   }, [categoria]);
+
+  // Cerrar dropdown al hacer click fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target as Node)) {
+        setShowSortDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Filtrar productos por categoría
   const categoryProducts = useMemo(() => {
@@ -337,44 +350,51 @@ const Categoria = () => {
           {/* Products Grid */}
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-4 mb-6">
               <Button
                 variant="outline"
-                className="lg:hidden gap-2"
+                className="lg:hidden gap-2 min-h-[48px] w-full sm:w-auto justify-center active:scale-95 transition-transform"
                 onClick={() => setShowFilters(!showFilters)}
               >
-                <Filter className="h-4 w-4" />
+                <Filter className="h-5 w-5" />
                 Filtros
+                {(selectedBrands.length > 0) && (
+                  <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                    {selectedBrands.length}
+                  </span>
+                )}
               </Button>
 
-              <div className="flex items-center gap-2 relative">
-                <span className="text-sm text-muted-foreground">Ordenar por:</span>
-                <button
-                  onClick={() => setShowSortDropdown(!showSortDropdown)}
-                  className="flex h-10 w-[200px] items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-colors"
-                >
-                  <span>{getSortLabel(sortBy)}</span>
-                  <ChevronDown className={`h-4 w-4 opacity-50 transition-transform ${showSortDropdown ? 'rotate-180' : ''}`} />
-                </button>
+              <div className="relative flex items-center gap-2 w-full sm:w-auto" ref={sortDropdownRef}>
+                <span className="text-xs sm:text-sm text-muted-foreground hidden sm:inline whitespace-nowrap">Ordenar por:</span>
+                <div className="relative flex-1 sm:flex-initial">
+                  <button
+                    onClick={() => setShowSortDropdown(!showSortDropdown)}
+                    className="flex w-full sm:w-[200px] h-12 sm:h-10 items-center justify-between rounded-md border border-input bg-background px-3 sm:px-4 py-2 text-sm ring-offset-background hover:bg-accent hover:text-accent-foreground active:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all"
+                  >
+                    <span className="truncate">{getSortLabel(sortBy)}</span>
+                    <ChevronDown className={`h-4 w-4 ml-2 flex-shrink-0 opacity-50 transition-transform ${showSortDropdown ? 'rotate-180' : ''}`} />
+                  </button>
 
-                {showSortDropdown && (
-                  <div className="absolute top-full right-0 mt-1 w-[200px] rounded-md border border-border bg-popover shadow-lg z-50 overflow-hidden animate-in fade-in-0 zoom-in-95">
-                    {sortOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => {
-                          setSortBy(option.value);
-                          setShowSortDropdown(false);
-                        }}
-                        className={`w-full text-left px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors ${
-                          sortBy === option.value ? 'bg-accent/50 font-medium' : ''
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  {showSortDropdown && (
+                    <div className="fixed sm:absolute left-4 right-4 sm:left-auto sm:right-0 top-auto sm:top-full mt-1 sm:w-[240px] rounded-md border border-border bg-popover shadow-lg z-[100] overflow-hidden animate-in fade-in-0 zoom-in-95">
+                      {sortOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => {
+                            setSortBy(option.value);
+                            setShowSortDropdown(false);
+                          }}
+                          className={`w-full text-left px-4 py-3 text-sm hover:bg-accent hover:text-accent-foreground active:bg-accent transition-colors min-h-[48px] flex items-center ${
+                            sortBy === option.value ? 'bg-accent/50 font-medium' : ''
+                          }`}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
