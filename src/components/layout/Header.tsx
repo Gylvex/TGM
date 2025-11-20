@@ -83,18 +83,19 @@ export const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-primary/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      {/* Main header */}
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex h-16 sm:h-20 items-center justify-between gap-2 sm:gap-3">
-          {/* Logo */}
-          <Link to="/" className="flex items-center group flex-shrink-0">
-            <img
-              src="/logo.png"
-              alt="Tienda Gamer Medellín"
-              className="h-12 sm:h-16 w-auto group-hover:scale-105 transition-transform"
-            />
-          </Link>
+    <>
+      <header className="sticky top-0 z-50 w-full border-b border-primary/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+        {/* Main header */}
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex h-16 sm:h-20 items-center justify-between gap-2 sm:gap-3">
+            {/* Logo */}
+            <Link to="/" className="flex items-center group flex-shrink-0">
+              <img
+                src="/logo.png"
+                alt="Tienda Gamer Medellín"
+                className="h-12 sm:h-16 w-auto group-hover:scale-105 transition-transform"
+              />
+            </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-2">
@@ -250,9 +251,9 @@ export const Header = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile menu - Slide from right */}
+      {/* Mobile menu - Slide from right - OUTSIDE header */}
       {isMenuOpen && (
         <>
           {/* Backdrop - Semi-transparent */}
@@ -406,6 +407,6 @@ export const Header = () => {
           </div>
         </>
       )}
-    </header>
+    </>
   );
 };
